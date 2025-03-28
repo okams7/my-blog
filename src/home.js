@@ -1,7 +1,13 @@
 const Home = () => {
+    const handleClick = (name, e) => {
+        console.log("Hello " + name);
+        console.log(e.target)
+    }
+
     return (
         <div className="home">
             <h2>الصفحة الرئيسية</h2>
+            <button onClick={(e) => handleClick("Ahmad", e)}>Click me</button>
         </div>
     );
 }
