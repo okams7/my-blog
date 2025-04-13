@@ -7,10 +7,15 @@ const Home = () => {
         { id: 3, title: "لماذا المحاولة", body: "احيانا يمكنك معرفة حيل ال..", auther: "منى" },
         { id: 4, title: "على ضفاف الشمال", body: "في خيال الشعوب القديمة..", auther: "علي" },
     ]);
+
+    const handleDelete = (id) => {
+        const newBlogs = blogs.filter(blog => blog.id !== id);
+        setBlogs(newBlogs);
+    }
+
     return (
         <div className="home">
-            <BlogList blogs={blogs} title="كل التدوينات" />
-            <BlogList blogs={blogs.filter((blog) => blog.auther === 'علي')} title="تدوينات علي" />
+            <BlogList blogs={blogs} title="كل التدوينات" handleDelete={handleDelete} />
         </div>
     );
 }
