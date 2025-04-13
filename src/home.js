@@ -1,4 +1,5 @@
 import { useState } from "react";
+import BlogList from "./blogList";
 const Home = () => {
     const [blogs, setBlogs] = useState([
         { id: 1, title: "مدونتي الاولى", body: "هذه بعض من الكلمات ..", auther: "سالم" },
@@ -7,12 +8,7 @@ const Home = () => {
     ]);
     return (
         <div className="home">
-            {blogs.map((blog) => (
-                <div className="blog-preview" key={blog.id}>
-                    <h2>{blog.title}</h2>
-                    <p>كتبت بواسطة {blog.auther}</p>
-                </div>
-            ))}
+            <BlogList blogs={blogs} title="كل التدوينات" />
         </div>
     );
 }
