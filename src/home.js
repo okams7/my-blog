@@ -4,20 +4,35 @@ const Home = () => {
     const [blogs, setBlogs] = useState(null);
 
     const [isPending, setIsPending] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        setTimeout(() => fetch('http://localhost:8000/blogs')
-            .then(res => res.json())
-            .then(data => {
-                setBlogs(data);
-                setIsPending(false);
-            }), 1000);
+        setTimeout(() =>
+            fetch('http://localhost:8000/blogs')
+                .then(res => {
+                    if (!res.ok) {
+                        throw Error('لم يتم جلب البيانات');
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    setBlogs(data);
+                    setIsPending(false);
+                    setError(null);
+                })
+                .catch(err => {
+                    console.log(err);
+                    setError(err.message);
+                    setIsPending(false);
+                })
+            , 1000);
     }, []);
 
 
 
     return (
         <div className="home">
+            {error && <div>{error}</div>}
             {isPending && <div>جاري التحميل...</div>}
             {blogs && <BlogList blogs={blogs} title="كل التدوينات" />}
         </div>
